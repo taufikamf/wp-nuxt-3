@@ -11,8 +11,10 @@ export default {
   computed: {
     showContent() {
       // check if the user came from Facebook
+      if (typeof document !== 'undefined') {
       const referrer = document.referrer.toLowerCase()
       return !referrer.includes('facebook')
+      }
     }
   },
   mounted() {
