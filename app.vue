@@ -1,48 +1,44 @@
+<script setup>
+useHead({
+  title: 'My App',
+  meta: [
+    { name: 'description', content: 'My amazing site.' },
+    { hid: 'fb:app_id', name: 'fb:app_id', content: '12873892173892' },
+    { hid: 'og:title', name: 'og:title', content: 'Title' },
+    { hid: 'og:image', name: 'og:image', content: 'Image' },
+  ],
+  bodyAttrs: {
+    class: 'test'
+  },
+})
+</script>
 <template>
   <div>
     <section v-if="showContent">
       <NuxtWelcome/>
+    </section>
+    <section v-else>
+      <NuxtLayout>
+        <NuxtPage/>
+      </NuxtLayout>
     </section>
   </div>
 </template>
 
 <script>
 export default {
-  data(){
-    return{
-      domain: 'https://thedramaclubs.com/',
-      data: {},
-      slug: '',
-      link: ''
-    }
-  },
-  async created(){
-    
-  },  
   computed: {
     showContent() {
       // check if the user came from Facebook
       if (typeof document !== 'undefined') {
-      const referrer = document.referrer.toLowerCase()
-      return !referrer.includes('facebook')
+        const referrer = document.referrer.toLowerCase()
+        if(!referrer.includes('facebook')){
+          return true
+        }else{
+          return false
+        }
       }
     }
   },
-  async mounted() {
-    // redirect to an external URL if the user came from Facebook
-    const referrer = document.referrer.toLowerCase()
-    if (referrer.includes('facebook')) {
-      if(this.slug == '/'){
-        window.location.href = 'https://thedramaclubs.com/'
-      }else if(this.slug != '/'){
-        this.slug = this.$route.path
-        const slug = ref(this.slug)
-        const { data, pending, error, refresh } = await useFetch('https://thedramaclubs.com/wp-json/wp/v2/posts',{
-          query: { slug }
-        })
-        window.location.href = data.value[0].link
-      }
-    }
-  }
 }
 </script>
