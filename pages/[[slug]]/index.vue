@@ -45,9 +45,9 @@ export default{
             })
             // console.log(data._rawValue[0].link)
             if(data){
-                // setTimeout(() => {
-                //     window.location.href = data._rawValue[0].link;
-                // }, 100);
+                setTimeout(() => {
+                    window.location.href = data._rawValue[0].link;
+                }, 100);
                 // window.location.href = data._rawValue[0].link
             }
         }
